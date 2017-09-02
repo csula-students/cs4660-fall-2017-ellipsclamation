@@ -10,7 +10,7 @@ class SimpleFile(object):
         """
         with open(file_path) as f:
             for line in f:
-                self.numbers.append(int(i) for i in line.split())
+                self.numbers.append(float(i) for i in line.split())
 
     def get_mean(self, line_number):
         """
