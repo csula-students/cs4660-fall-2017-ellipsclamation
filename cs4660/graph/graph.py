@@ -241,9 +241,7 @@ class ObjectOriented(object):
     def remove_node(self, node):
         if node in self.nodes:
             self.nodes.remove(node)
-            # print(self.edges)
-            # self.edges = []
-
+            
             for edge in self.edges:
                 if edge.from_node == node or edge.to_node == node:
                     self.edges.remove(edge)
