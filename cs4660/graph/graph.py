@@ -122,11 +122,9 @@ class AdjacencyList(object):
             del self.adjacency_list[node]
 
             for from_node, edges in self.adjacency_list.items():
-                self.adjacency_list[from_node] = []
-
                 for edge in edges:
-                    if edge.from_node != node and edge.to_node != node:
-                        self.adjacency_list[from_node].append(edge)
+                    if edge.from_node == node or edge.to_node == node:
+                        edges.remove(edge)
 
             return True
         else:
@@ -184,11 +182,9 @@ class AdjacencyMatrix(object):
             del self.nodes[self.__get_node_index(node)]
 
             for i, edges in enumerate(self.adjacency_matrix):
-                self.adjacency_matrix[i] = []
-
                 for edge in edges:
-                    if edge.from_node != node and edge.to_node != node:
-                        self.adjacency_matrix[i].append(edge)
+                    if edge.from_node == node or edge.to_node == node:
+                        self.adjacency_matrix[i].remove(edge)
 
             return True
         else:
@@ -245,12 +241,12 @@ class ObjectOriented(object):
     def remove_node(self, node):
         if node in self.nodes:
             self.nodes.remove(node)
-
-            self.edges = []
+            # print(self.edges)
+            # self.edges = []
 
             for edge in self.edges:
-                if edge.from_node != node and edge.to_node != node:
-                    self.edges.append(edge)
+                if edge.from_node == node or edge.to_node == node:
+                    self.edges.remove(edge)
             return True
         else:
             return False
