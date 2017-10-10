@@ -1,6 +1,7 @@
 """
 Searches module defines all different search algorithms
 """
+from graph import graph as g
 
 def bfs(graph, initial_node, dest_node):
     """
@@ -8,7 +9,23 @@ def bfs(graph, initial_node, dest_node):
     uses graph to do search from the initial_node to dest_node
     returns a list of actions going from the initial node to dest_node
     """
-    pass
+    queue = []
+
+    queue.append([initial_node])
+
+    while queue:
+        path = queue.pop(0)
+        node = path[-1]
+
+        if node == dest_node:
+            print(path)
+            return path
+
+        for neighbor in graph.neighbors(node):
+            new_path = list(path)
+            new_path.append(neighbor)
+            queue.append(new_path)
+            print(queue)
 
 def dfs(graph, initial_node, dest_node):
     """
