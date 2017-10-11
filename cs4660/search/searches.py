@@ -10,6 +10,7 @@ def bfs(graph, initial_node, dest_node):
     returns a list of actions going from the initial node to dest_node
     """
     queue = []
+    edges = []
 
     queue.append([initial_node])
 
@@ -18,14 +19,17 @@ def bfs(graph, initial_node, dest_node):
         node = path[-1]
 
         if node == dest_node:
-            print(path)
-            return path
+            # find edges given the nodes in path
+            for i, node in enumerate(path):
+                if i < len(path) - 1:
+                    edge = g.Edge(node, path[i + 1], graph.distance(node, path[i + 1]))
+                    edges.append(edge)
+            return edges
 
         for neighbor in graph.neighbors(node):
             new_path = list(path)
             new_path.append(neighbor)
             queue.append(new_path)
-            print(queue)
 
 def dfs(graph, initial_node, dest_node):
     """
