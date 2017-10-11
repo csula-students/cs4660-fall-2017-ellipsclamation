@@ -16,14 +16,14 @@ def bfs(graph, initial_node, dest_node):
 
     while queue:
         path = queue.pop(0)
+        # last node in path
         node = path[-1]
 
         if node == dest_node:
             # find edges given the nodes in path
-            for i, node in enumerate(path):
-                if i < len(path) - 1:
-                    edge = g.Edge(node, path[i + 1], graph.distance(node, path[i + 1]))
-                    edges.append(edge)
+            for i in range(len(path) - 1):
+                edge = g.Edge(path[i], path[i + 1], graph.distance(path[i], path[i + 1]))
+                edges.append(edge)
             return edges
 
         for neighbor in graph.neighbors(node):
