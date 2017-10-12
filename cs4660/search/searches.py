@@ -20,7 +20,7 @@ def bfs(graph, initial_node, dest_node):
         node = path[-1]
 
         if node == dest_node:
-            # find edges given the nodes in path
+            # convert nodes to edges
             for i in range(len(path) - 1):
                 edge = g.Edge(path[i], path[i + 1], graph.distance(path[i], path[i + 1]))
                 edges.append(edge)
@@ -37,7 +37,28 @@ def dfs(graph, initial_node, dest_node):
     uses graph to do search from the initial_node to dest_node
     returns a list of actions going from the initial node to dest_node
     """
-    pass
+    parents = {}
+
+    dfs_helper(graph, initial_node, {}, parents)
+
+    edges = []
+    child = dest_node
+
+    # convert nodes to edges
+    while child != initial_node:
+        parent = parents[child]
+        edges = [g.Edge(parent, child, graph.distance(parent, child))] + edges
+        child = parent
+
+    return edges
+
+def dfs_helper(graph, current, is_discovered, parents):
+    for child in graph.neighbors(current):
+        if child in is_discovered:
+            continue
+        is_discovered[child] = True
+        parents[child] = current
+        dfs_helper(graph, child, is_discovered, parents)
 
 def dijkstra_search(graph, initial_node, dest_node):
     """
