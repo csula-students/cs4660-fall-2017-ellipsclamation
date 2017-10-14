@@ -4,7 +4,7 @@ utils package is for some quick utility methods
 such as parsing
 """
 
-import graph as g
+from . import graph as g
 
 class Tile(object):
     """Node represents basic unit of graph"""
@@ -71,22 +71,22 @@ def parse_grid_file(graph, file_path):
             graph.add_node(curr_tile)
 
             # add top edge
-            if y > 0 and Tile(x, y - 1, rows[y - 1][x]) != '##':
+            if y > 0 and Tile(x, y - 1, rows[y - 1][x]).symbol != '##':
                 top_tile = g.Node(Tile(x, y - 1, rows[y - 1][x]))
                 graph.add_edge(g.Edge(curr_tile, top_tile, 1))
 
             # add right edge
-            if x < len(row) - 1 and Tile(x + 1, y, rows[y][x + 1]) != '##':
+            if x < len(row) - 1 and Tile(x + 1, y, rows[y][x + 1]).symbol != '##':
                 right_tile = g.Node(Tile(x + 1, y, rows[y][x + 1]))
                 graph.add_edge(g.Edge(curr_tile, right_tile, 1))
 
             # add bottom edge
-            if y < len(rows) - 1 and Tile(x, y + 1, rows[y + 1][x]) != '##':
+            if y < len(rows) - 1 and Tile(x, y + 1, rows[y + 1][x]).symbol != '##':
                 bot_tile = g.Node(Tile(x, y + 1, rows[y + 1][x]))
                 graph.add_edge(g.Edge(curr_tile, bot_tile, 1))
 
             # add left edge
-            if x > 0 and Tile(x - 1, y, rows[y][x - 1]) != '##':
+            if x > 0 and Tile(x - 1, y, rows[y][x - 1]).symbol != '##':
                 left_tile = g.Node(Tile(x - 1, y, rows[y][x - 1]))
                 graph.add_edge(g.Edge(curr_tile, left_tile, 1))
 
@@ -105,13 +105,13 @@ def convert_edge_to_grid_actions(edges):
 
     for edge in edges:
         # North
-        if edge.from_node.data.y < edge.to_node.data.y:
+        if edge.from_node.data.y > edge.to_node.data.y:
             actions += "N"
         # East
         elif edge.from_node.data.x < edge.to_node.data.x:
             actions += "E"
         # South
-        elif edge.from_node.data.y > edge.to_node.data.y:
+        elif edge.from_node.data.y < edge.to_node.data.y:
             actions += "S"
         # West
         elif edge.from_node.data.x > edge.to_node.data.x:
