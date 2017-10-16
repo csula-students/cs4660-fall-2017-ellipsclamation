@@ -13,12 +13,6 @@ TODO: implement Dijkstra utilizing the path with highest effect number
 import json
 import codecs
 from graph import graph as g
-from search import searches
-
-try:
-    import Queue as queue
-except ImportError:
-    import queue
 
 # http lib import for Python 2 and 3: alternative 4
 try:
