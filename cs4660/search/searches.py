@@ -80,22 +80,18 @@ def dijkstra_search(graph, initial_node, dest_node):
 
     while queue:
         # remove and return best vertex
-        node = queue.pop()[1]
+        node = queue.pop(0)[1]
 
         for neighbor in graph.neighbors(node):
             alt = dist[node] + graph.distance(node, neighbor)
 
             if neighbor not in dist or alt < dist[neighbor]:
-                if neighbor in dist:
-                    queue.remove((dist[neighbor], neighbor))
-
                 queue.append((alt, neighbor))
                 dist[neighbor] = alt
                 prev[neighbor] = node
 
         # sort
-        queue = sorted(queue, key=lambda x:x[0])
-        queue.reverse()
+        queue = sorted(queue, key=lambda priority: priority[0])
 
     current = dest_node
 
